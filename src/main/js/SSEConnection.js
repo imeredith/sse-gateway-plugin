@@ -21,8 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-var jsModules = require('@jenkins-cd/js-modules');
 var ajax = require('./ajax');
 var json = require('./json');
 
@@ -107,17 +105,6 @@ SSEConnection.prototype = {
             }
         }
 
-        if (this.jenkinsUrl === undefined) {
-            try {
-                this.jenkinsUrl = jsModules.getRootURL();
-            } catch (e) {
-                LOGGER.warn("Jenkins SSE client initialization failed. Unable to connect to " +
-                    "Jenkins because we are unable to determine the Jenkins Root URL. SSE events " +
-                    "will not be received. Probable cause: no 'data-rooturl' on the page <head> " +
-                    "element e.g. running in a test, or running headless without specifying a " +
-                    "Jenkins URL.");
-            }
-        }
         if (this.jenkinsUrl !== undefined) {
             this.jenkinsUrl = normalizeUrl(this.jenkinsUrl);
         }
